@@ -5,8 +5,10 @@ import unfiltered.response._
 
 object App extends unfiltered.filter.Plan {
   def intent = traitors orElse {
-    case GET(Path(Seg("hello" :: name :: Nil))) => ResponseString("Got "+name)
-    case PUT(Path(Seg("hello" :: name :: Nil))) => ResponseString("Put "+name)
+    case req @ Path(Seg("hello" :: name :: Nil)) => req match {
+      case GET(_) => ResponseString("Got "+name)
+      case PUT(_) => ResponseString("Put "+name)
+    }
   }
 
   def traitors: unfiltered.filter.Plan.Intent = {
