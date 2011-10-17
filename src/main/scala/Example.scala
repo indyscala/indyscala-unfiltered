@@ -4,12 +4,16 @@ import unfiltered.request._
 import unfiltered.response._
 
 object App extends unfiltered.filter.Plan {
-  def intent = {
+  def intent = traitors orElse {
     case Path("/hello/Ross") => ResponseString("Hello, Ross!")
     case Path("/hello/Patrick") => ResponseString("Hello, Patrick!")
     case Path("/hello/Cody") => ResponseString("Hello, Cody!")
     case Path("/hello/Michael") => ResponseString("Hello, Michael!")
     case Path("/hello/Dan") => ResponseString("Hello, Dan!")
+  }
+
+  def traitors: unfiltered.filter.Plan.Intent = {
+    case Path("/hello/JR") => ResponseString("TRAITOR!")
   }
 }
 
